@@ -4,22 +4,19 @@ namespace App\Traits;
 
 use Illuminate\Support\Facades\Storage;
 
-trait ImageUpload
+trait UploadImage
 {
-    public function uploadImage($folder)
-    {
-        return request()->file('avatar')->store($folder, 'public');
+    public function upload($image,$folderName){
+        return $image->store($folderName, 'public');
     }
 
-    public function deleteImage($folder)
-    {
-        if (Storage::exists('public/' . $folder->image)) {
-            Storage::delete('public/' . $folder->image);
+    public function deleteImage($image,$folder){
+        if (Storage::exists('public/' .$folderName, $image)) {
+            Storage::delete('public/' .$folderName, $image);
         }
     }
 
-    public function updateImage($folder)
-    {
+    public function updateImage($folder){
         $this->deleteAvatar($folder);
     }
 }
