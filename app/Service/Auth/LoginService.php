@@ -7,18 +7,22 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
-class LoginService
+
+/// add all authenatication functions here
+class AuthService
 {
-    public function login(AuthRequest $request)
-    {
+    public function login(AuthRequest $request){
+        
         $admin = User::whereEmail($request->email)->first();
 
-        if (! $admin || ! Hash::check($request->password, $admin->password)) {
+        if (! $admin || ! Hash::check($request->password, $admin->password)) 
 
             throw ValidationException::withMessages([
                 'email' => ['Email or password not correct']]);
-        }
+        
 
         return ['token' => $admin->createToken('token-name', ['admin'])->plainTextToken];
     }
+
+    
 }
