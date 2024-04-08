@@ -9,6 +9,8 @@ use App\Traits\ImageUpload;
 class ProductRepository
 {
     use ImageUpload ;
+    
+    // add pagination
     public function index()
     {
         return Product::all();
@@ -23,15 +25,19 @@ class ProductRepository
             ] + $request->validated(),
         );
 
+        // you have to move ApiResponse to controoler, here you just have to return true if data creted successfully 
         return ApiResponse::createSuccessResponse();
     }
 
+
+    ///what this function does ?
     public function show(Product $product)
     {
         return $product ;
     }
 
- 
+
+    /// delete this function ???
     public function edit(Product $product)
     {
         return $product ;
@@ -47,6 +53,8 @@ class ProductRepository
             ] + $request->validated(),
         );
 
+
+        //same proplem, you have to  return boolean value here, then use it in controller
         return ApiResponse::updateSuccessResponse();
     }
 
@@ -54,7 +62,7 @@ class ProductRepository
     {
         $this->deleteImage($product);
         $product->delete();
-
+        ///saome proplem ..
         return ApiResponse::deleteSuccessResponse();
     }
 }
